@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data Dashboard</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .header { 
+            text-align: center; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-bottom: 20px; 
+        }
+        .stats { 
+            display: flex; 
+            justify-content: space-around; 
+            margin-bottom: 20px; 
+            flex-wrap: wrap;
+        }
+        .stat-card { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 8px; 
+            text-align: center; 
+            min-width: 150px; 
+            margin: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .user-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px;
+        }
+        .user-table th, .user-table td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+        }
+        .user-table th { 
+            background: #f8f9fa; 
+            font-weight: bold;
+        }
+        .user-table tr:hover { background: #f5f5f5; }
+        .btn { 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: bold;
+        }
+        .btn-primary { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+        }
+        .btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .loading { 
+            text-align: center; 
+            padding: 20px; 
+            font-size: 18px;
+        }
+        .error { 
+            background: #f8d7da; 
+            color: #721c24; 
+            padding: 15px; 
+            border-radius: 4px; 
+            margin-bottom: 20px; 
+        }
+        .success { 
+            background: #d4edda; 
+            color: #155724; 
+            padding: 15px; 
+            border-radius: 4px; 
+            margin-bottom: 20px; 
+        }
+        .status-active { color: #28a745; font-weight: bold; }
+        .status-inactive { color: #dc3545; font-weight: bold; }
+        .footer { 
+            text-align: center; 
+            margin-top: 30px; 
+            padding-top: 20px; 
+            border-top: 1px solid #ddd; 
+            color: #666; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👥 User Data Dashboard</h1>
+            <p>Diet Recommendation System - Real-time User Monitoring</p>
+        </div>
+        
+        <div id="loading" class="loading">
+            <div>🔄 Loading user data...</div>
+        </div>
+        
+        <div id="error" class="error" style="display: none;"></div>
+        <div id="success" class="success" style="display: none;"></div>
+        
+        <div id="content" style="display: none;">
+            <div class="stats" id="stats"></div>
+            <div id="userTable"></div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="loadData()" class="btn btn-primary">🔄 Refresh Data</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Last updated: <span id="lastUpdated">Never</span></p>
+            <p>Auto-refresh every 30 seconds</p>
+        </div>
+    </div>
+    
+    <script>
+        const MAIN_SYSTEM_URL = "http://localhost:5000";
+        const ADMIN_EMAIL = "admin@diet-system.com";
+        const ADMIN_PASSWORD = "admin123";
+        
+        async function loadUserData() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('success').style.display = 'none';
+            document.getElementById('content').style.display = 'none';
+            
+            try {
+                // Step 1: Get admin token
+                const authResponse = await fetch(`${MAIN_SYSTEM_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: ADMIN_EMAIL,
+                        password: ADMIN_PASSWORD
+                    })
+                });
+                
+                if (!authResponse.ok) {
+                    throw new Error('Failed to authenticate with main system');
+                }
+                
+                const authData = await authResponse.json();
+                const token = authData.token;
+                
+                // Step 2: Get user profile
+                const profileResponse = await fetch(`${MAIN_SYSTEM_URL}/api/auth/profile`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (!profileResponse.ok) {
+                    throw new Error('Failed to fetch user data');
+                }
+                
+                const profileData = await profileResponse.json();
+                
+                // Step 3: Process user data
+                const users = [];
+                if (profileData.profile) {
+                    const user = profileData.profile;
+                    users.push({
+                        name: user.name || 'Unknown',
+                        email: user.email || 'unknown@example.com',
+                        age: user.age || 0,
+                        gender: user.gender || 'unknown',
+                        weight: user.weight || 0,
+                        height: user.height || 0,
+                        bmi: user.bmi || 0,
+                        goal: user.goal || 'unknown',
+                        activity_level: user.activity_level || 'unknown',
+                        has_diet_plan: !!(user.weight && user.height),
+                        daily_calories: user.daily_calories_needed || 0,
+                        phone: user.phone || 'N/A'
+                    });
+                }
+                
+                // Step 4: Calculate statistics
+                const totalUsers = users.length;
+                const activeUsers = users.filter(u => u.has_diet_plan).length;
+                const inactiveUsers = totalUsers - activeUsers;
+                const avgAge = users.length > 0 ? 
+                    Math.round(users.reduce((sum, u) => sum + u.age, 0) / users.length) : 0;
+                
+                // Step 5: Display data
+                displayStats({
+                    total_users: totalUsers,
+                    active_users: activeUsers,
+                    inactive_users: inactiveUsers,
+                    avg_age: avgAge
+                });
+                displayUsers(users);
+                
+                // Update last updated time
+                document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+                document.getElementById('success').textContent = '✅ Data loaded successfully!';
+                document.getElementById('success').style.display = 'block';
+                
+                setTimeout(() => {
+                    document.getElementById('success').style.display = 'none';
+                }, 3000);
+                
+                document.getElementById('content').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                document.getElementById('error').textContent = '❌ Error: ' + error.message;
+                document.getElementById('error').style.display = 'block';
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+        
+        function displayStats(stats) {
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-card">
+                    <h3>👤 ${stats.total_users}</h3>
+                    <p>Total Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>✅ ${stats.active_users}</h3>
+                    <p>Active Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>⏸️ ${stats.inactive_users}</h3>
+                    <p>Inactive Users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>📅 ${stats.avg_age}</h3>
+                    <p>Average Age</p>
+                </div>
+            `;
+        }
+        
+        function displayUsers(users) {
+            if (users.length === 0) {
+                document.getElementById('userTable').innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <h3>📊 No Users Found</h3>
+                        <p>No users have registered in the system yet.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <table class="user-table">
+                    <tr>
+                        <th>👤 Name</th>
+                        <th>📧 Email</th>
+                        <th>📅 Age</th>
+                        <th>⚧ Gender</th>
+                        <th>⚖️ Weight</th>
+                        <th>📏 Height</th>
+                        <th>📊 BMI</th>
+                        <th>🎯 Goal</th>
+                        <th>🏃 Activity</th>
+                        <th>📱 Phone</th>
+                        <th>🔥 Calories</th>
+                        <th>📈 Status</th>
+                    </tr>
+            `;
+            
+            users.forEach(user => {
+                const status = user.has_diet_plan ? 'Active' : 'Inactive';
+                const statusClass = user.has_diet_plan ? 'status-active' : 'status-inactive';
+                const statusIcon = user.has_diet_plan ? '✅' : '⏸️';
+                
+                tableHTML += `
+                    <tr>
+                        <td><strong>${user.name}</strong></td>
+                        <td>${user.email}</td>
+                        <td>${user.age}</td>
+                        <td>${user.gender}</td>
+                        <td>${user.weight ? user.weight + ' kg' : 'N/A'}</td>
+                        <td>${user.height ? user.height + ' cm' : 'N/A'}</td>
+                        <td>${user.bmi ? user.bmi.toFixed(1) : 'N/A'}</td>
+                        <td>${user.goal}</td>
+                        <td>${user.activity_level}</td>
+                        <td>${user.phone}</td>
+                        <td>${user.daily_calories ? user.daily_calories + ' kcal' : 'N/A'}</td>
+                        <td class="${statusClass}">${statusIcon} ${status}</td>
+                    </tr>
+                `;
+            });
+            
+            tableHTML += '</table>';
+            document.getElementById('userTable').innerHTML = tableHTML;
+        }
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadUserData, 30000);
+        
+        // Load data on page load
+        window.onload = function() {
+            loadUserData();
+        };
+    </script>
+</body>
+</html>

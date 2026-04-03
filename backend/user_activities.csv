@@ -1,0 +1,34 @@
+timestamp,user_email,activity_type,details
+2026-04-01 12:02:17,user_70.0_170.0,diet_request,"BMI: 24.2, Category: Normal, Conditions: diabetes"
+2026-04-01 12:17:06,gurumounika2@gmail.com,registration,User mounika choppa registered successfully
+2026-04-01 12:23:45,gurumounika45@gmail.com,registration,User mounika choppa registered successfully
+2026-04-01 12:24:47,pooj2@gmail.com,registration,User GAJJALA BALAIAH registered successfully
+2026-04-01 12:28:52,test@example.com,registration,User Mounika Choppa registered successfully
+2026-04-01 12:42:12,gchakrapani8505@gmail.com,registration,User poojitha g registered successfully
+2026-04-01 12:43:08,user_50.0_5.2,diet_request,"BMI: 18491.1, Category: Overweight, Conditions: none"
+2026-04-01 12:43:15,user_50.0_5.2,diet_request,"BMI: 18491.1, Category: Overweight, Conditions: none"
+2026-04-01 12:43:21,user_50.0_5.2,diet_request,"BMI: 18491.1, Category: Overweight, Conditions: none"
+2026-04-01 12:44:22,gchakrapani850@gmail.com,registration,User poojitha g registered successfully
+2026-04-01 12:48:35,pooj4@gmail.com,registration,User GAJJALA BALAIAH registered successfully
+2026-04-01 12:51:27,user_57.0_5.7,diet_request,"BMI: 17543.9, Category: Overweight, Conditions: none"
+2026-04-01 12:51:51,pooj99@gmail.com,registration,User GAJJALA BALAIAH registered successfully
+2026-04-01 12:54:24,pooj990@gmail.com,registration,User GAJJALA BALAIAH registered successfully
+2026-04-01 12:54:47,user_profile,diet_request,"BMI: 17543.9, Category: Overweight, Conditions: sugar"
+2026-04-01 12:56:49,user_profile,diet_request,"BMI: 17543.9, Category: Overweight, Conditions: sugar"
+2026-04-01 12:56:54,user_profile,diet_request,"BMI: 19.7, Category: Normal, Conditions: sugar"
+2026-04-01 12:57:11,gurumounika45@gmail.com,login,User logged in successfully
+2026-04-01 12:57:38,user_profile,diet_request,"BMI: 19.7, Category: Normal, Conditions: sugar"
+2026-04-01 13:01:04,gurumounika45@gmail.com,login,User logged in successfully
+2026-04-01 13:06:13,pooj969@gmail.com,registration,User GAJJALA BALAIAH registered successfully
+2026-04-01 13:06:31,user_profile,diet_request,"BMI: 19.7, Category: Normal, Conditions: sugar"
+2026-04-01 13:06:41,user_profile,diet_request,"BMI: 19.7, Category: Normal, Conditions: sugar"
+2026-04-01 13:10:12,pooj969@gmail.com,login,User logged in successfully
+2026-04-01 13:10:30,user_profile,diet_request,"BMI: 19.7, Category: Normal, Conditions: sugar"
+2026-04-01 13:17:21,user_profile,diet_request,"BMI: 19.7, Category: Normal, Conditions: sugar"
+2026-04-01 13:17:28,user_profile,diet_request,"BMI: 19.7, Category: Normal, Conditions: sugar"
+2026-04-01 13:17:33,user_profile,diet_request,"BMI: 19.7, Category: Normal, Conditions: sugar"
+2026-04-01 13:21:19,user_profile,diet_request,"BMI: 24.1, Category: Normal, Conditions: diabetes"
+2026-04-01 13:21:25,user_profile,diet_request,"BMI: 24.1, Category: Normal, Conditions: diabetes"
+2026-04-01 13:26:15,user_profile,diet_request,"BMI: 24.1, Category: Normal, Conditions: diabetes"
+2026-04-01 13:29:17,user_profile,diet_request,"BMI: 24.1, Category: Normal, Conditions: diabetes"
+2026-04-01 13:33:17,user_profile,diet_request,"BMI: 24.1, Category: Normal, Conditions: diabetes"

@@ -1,0 +1,18 @@
+timestamp,user_email,weight,height,age,gender,activity_level,health_conditions,bmi,bmi_category,calories_needed
+2026-04-01 12:02:19,user_70.0_170.0,70.0,170.0,25,male,moderate,diabetes,24.2,Normal,2635.0
+2026-04-01 12:43:10,user_50.0_5.2,50.0,5.2,25,female,light,none,18491.1,Overweight,1124.0
+2026-04-01 12:43:17,user_50.0_5.2,50.0,5.2,25,female,light,none,18491.1,Overweight,1124.0
+2026-04-01 12:43:23,user_50.0_5.2,50.0,5.2,25,female,light,none,18491.1,Overweight,1124.0
+2026-04-01 12:51:29,user_57.0_5.7,57.0,5.7,30,male,moderate,none,17543.9,Overweight,1099.0
+2026-04-01 12:54:49,user_profile,57.0,5.7,30,male,moderate,sugar,17543.9,Overweight,1099.0
+2026-04-01 12:56:51,user_profile,57.0,5.7,30,male,light,sugar,17543.9,Overweight,975.0
+2026-04-01 12:56:56,user_profile,57.0,170.0,30,male,light,sugar,19.7,Normal,2059.0
+2026-04-01 12:57:40,user_profile,57.0,170.0,30,female,light,sugar,19.7,Normal,1886.0
+2026-04-01 13:06:33,user_profile,57.0,170.0,30,male,light,sugar,19.7,Normal,2059.0
+2026-04-01 13:06:43,user_profile,57.0,170.0,30,male,light,sugar,19.7,Normal,2059.0
+2026-04-01 13:10:32,user_profile,57.0,170.0,30,female,light,sugar,19.7,Normal,1886.0
+2026-04-01 13:17:23,user_profile,57.0,170.0,30,female,active,sugar,19.7,Normal,2366.0
+2026-04-01 13:17:30,user_profile,57.0,170.0,30,female,active,sugar,19.7,Normal,2366.0
+2026-04-01 13:17:35,user_profile,57.0,170.0,30,female,active,sugar,19.7,Normal,2366.0
+2026-04-01 13:21:21,user_profile,78.0,180.0,25,female,moderate,diabetes,24.1,Normal,2508.0
+2026-04-01 13:21:27,user_profile,78.0,180.0,25,female,moderate,diabetes,24.1,Normal,2508.0
